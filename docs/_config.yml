@@ -8,3 +8,12 @@ description: > # this means to ignore newlines until "baseurl:"
 github_username:  yngvem
 
 show_excerpts: true # set to false to remove excerpts on the homepage
+
+remote_theme: thelehhman/texture
+
+texture:
+  title: INF200: Advanced Python Programming at NMBU
+  tagline: Taught by Yngve Mardal Moe
+  date_format: "%-d - %b - %Y"
+  
+  style: black
