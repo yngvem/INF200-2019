@@ -1,0 +1,16 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.inner {
+  max-width: 960px;
+}
+
+#forkme_banner {
+  opacity: 0;
+}
+
+#header_wrap {
+  background: #212121;
+}
