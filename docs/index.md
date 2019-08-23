@@ -8,7 +8,7 @@ expect you to work on weekly coursework in order to take the exam.
 The contents of the course will be posted on this page, which you are expected
 to check weekly. 
 
-## Course content
+## About this module
 After taking INF120, you know of most of the programming concepts needed to
 develop advanced code. The contents of INF120 is, in fact, enough to solve
 most programming problems you can concieve of. However, you do not have
