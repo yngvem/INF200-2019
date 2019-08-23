@@ -56,3 +56,13 @@ Finally, this course does not have a traditional exam. Instead, you are expected
 to work in pairs on a three-week full-time programming assignment, either in
 January or in June. More information about this task will be released later.
 
+## Screencasts
+We will publish a series of screencasts to help you get started with Git.
+These will be posted here as soon as they are finished.
+
+## Coursework
+There are two kinds of coursework in this module, weekly exersices and
+larger pair programming problems. The weekly coursework exersices will be
+posted in a separate repository
+[here](https://github.com/yngvem/INF200-2019-Exersices) and the pair
+programming exersices will be posted later.
