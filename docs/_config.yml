@@ -1,9 +1,8 @@
-title: "INF200"
-author: Taught by Yngve Mardal Moe
+title: "Advanced Python Programming"
+author: Yngve Mardal Moe
 email: yngvemoe@nmbu.no
 description: > # this means to ignore newlines until "baseurl:"
-  Advanced Python Programming <br>
-  <b>Taught by Yngve Mardal Moe</b>
+  Taught by Yngve Mardal Moe
 github_username:  yngvem
 
 
