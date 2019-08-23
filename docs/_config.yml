@@ -17,3 +17,4 @@ texture:
   date_format: "%-d - %b - %Y"
   
   style: black
+  showPicker: false
