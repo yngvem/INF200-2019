@@ -19,3 +19,5 @@ texture:
   
   style: black
   showPicker: false
+  
+  showNav: true
