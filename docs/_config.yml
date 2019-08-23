@@ -1,0 +1,10 @@
+title: INF200 2019
+author: Yngve Mardal Moe
+email: yngvemoe@nmbu.no
+description: > # this means to ignore newlines until "baseurl:"
+  The information pages for the Advanced Python Programming (INF200) module
+  at the Norwegian University of Life Sciences.
+
+github_username:  yngvem
+
+show_excerpts: true # set to false to remove excerpts on the homepage
