@@ -1,4 +1,4 @@
-# Welcome to the module pages for INF200 at NMBU.
+# Welcome to the info pages for INF200 at NMBU.
 
 ## Welcome
 This is a hands-on course that will take you from beginner to seasoned Python
