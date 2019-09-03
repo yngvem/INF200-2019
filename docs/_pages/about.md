@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Welcome to the info pages for INF200 at NMBU.
+title: Welcome to the info pages for INF200 at NMBU
 permalink: /about/
 ---
 
