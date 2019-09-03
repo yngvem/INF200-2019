@@ -56,9 +56,21 @@ Finally, this course does not have a traditional exam. Instead, you are expected
 to work in pairs on a three-week full-time programming assignment, either in
 January or in June. More information about this task will be released later.
 
+## Textbook
+There is no textbook in INF200, however, I we will create YouTube videos
+that you are expected to watch. Additionally, I will post links to lectures
+made by other programmers that covers topics that are part of the curriculum,
+will not be talked about in the lectures. You should also watch these videos.
+
+Also, I strongly reccomend the book
+[Fluent Python](https://www.oreilly.com/library/view/fluent-python/9781491946237/)
+by Luciano Ramalho if you wish to take your Python programming to the next
+level.
+
 ## Screencasts
-We will publish a series of screencasts to help you get started with Git.
-These will be posted here as soon as they are finished.
+We will publish some screencasts on our [YouTube channel](https://www.youtube.com/channel/UC8XWLPrXyqHWKHzBMMRnWlw)
+and also create playlists with Python lectures you should watch on your spare
+time.
 
 ## Coursework
 There are two kinds of coursework in this module, weekly exersices and
