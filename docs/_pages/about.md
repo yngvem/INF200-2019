@@ -1,3 +1,9 @@
+---
+layout: page
+title: About
+permalink: /about/
+---
+
 # Welcome to the info pages for INF200 at NMBU.
 
 ## Welcome
