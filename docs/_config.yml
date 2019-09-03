@@ -8,7 +8,8 @@ github_username:  yngvem
 
 show_excerpts: true # set to false to remove excerpts on the homepage
 
-theme: jekyll-theme-slate
+# theme: jekyll-theme-slate
+remote_theme: barryclark/jekyll-now
 
 github:
   is_project_page: false
