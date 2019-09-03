@@ -1,0 +1,17 @@
+title: "Advanced Python Programming"
+author: Yngve Mardal Moe
+email: yngvemoe@nmbu.no
+description: > # this means to ignore newlines until "baseurl:"
+  Taught by Yngve Mardal Moe
+github_username:  yngvem
+
+
+show_excerpts: true # set to false to remove excerpts on the homepage
+
+theme: jekyll-theme-slate
+# remote_theme: barryclark/jekyll-now
+
+github:
+  is_project_page: false
+
+# theme: jekyll-theme-minimal
