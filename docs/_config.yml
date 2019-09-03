@@ -13,3 +13,5 @@ remote_theme: barryclark/jekyll-now
 
 github:
   is_project_page: false
+
+theme: jekyll-theme-minimal
