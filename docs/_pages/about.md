@@ -1,12 +1,10 @@
 ---
 layout: page
-title: About
+title: Welcome to the info pages for INF200 at NMBU.
 permalink: /about/
 ---
 
-## Welcome to the info pages for INF200 at NMBU.
-
-### Welcome
+## Welcome
 This is a hands-on course that will take you from beginner to seasoned Python
 programmer in one semester. Therefore, this is a fast-paced module and we
 expect you to work on weekly coursework in order to take the exam.
@@ -14,7 +12,7 @@ expect you to work on weekly coursework in order to take the exam.
 The contents of the course will be posted on this page, which you are expected
 to check weekly. 
 
-### About this module
+## About this module
 After taking INF120, you know of most of the programming concepts needed to
 develop advanced code. The contents of INF120 is, in fact, enough to solve
 most programming problems you can concieve of. However, you do not have
@@ -62,7 +60,7 @@ Finally, this course does not have a traditional exam. Instead, you are expected
 to work in pairs on a three-week full-time programming assignment, either in
 January or in June. More information about this task will be released later.
 
-### Textbook
+## Textbook
 There is no textbook in INF200, however, I we will create YouTube videos
 that you are expected to watch. Additionally, I will post links to lectures
 made by other programmers that covers topics that are part of the curriculum,
@@ -73,12 +71,12 @@ Also, I strongly reccomend the book
 by Luciano Ramalho if you wish to take your Python programming to the next
 level.
 
-### Screencasts
+## Screencasts
 We will publish some screencasts on our [YouTube channel](https://www.youtube.com/channel/UC8XWLPrXyqHWKHzBMMRnWlw)
 and also create playlists with Python lectures you should watch on your spare
 time.
 
-### Coursework
+## Coursework
 There are two kinds of coursework in this module, weekly exersices and
 larger pair programming problems. The weekly coursework exersices will be
 posted in a separate repository
