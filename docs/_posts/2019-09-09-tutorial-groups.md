@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Tutorial groups."
+title: "Tutorial groups"
 ---
 
 
