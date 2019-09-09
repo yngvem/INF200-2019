@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "New TA and information about tutorials."
+title: "New TA and information about tutorials"
 ---
 
 We have hired a new TA, Ahmed. His GitHub handle is added to the list of collaborators you should add to your repository.
