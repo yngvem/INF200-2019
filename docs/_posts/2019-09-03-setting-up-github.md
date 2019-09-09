@@ -10,5 +10,6 @@ The GitHub users you should add to your collaborators are
  * yngvem
  * huynhngoc
  * danielambrosius
+ * ahmedalbuni
 
-There will be a third TA added soon.
+~~There will be a third TA added soon.~~
