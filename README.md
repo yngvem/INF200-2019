@@ -16,9 +16,7 @@ These usernames should be added as colaborators on your GitHub page
  * yngvem
  * huynhngoc
  * danielambrosius
-
-There will be a third TA added soon.
-
+ * ahmedalbuni
 
 
 ## Clock patience
