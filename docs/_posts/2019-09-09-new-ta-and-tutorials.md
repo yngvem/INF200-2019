@@ -18,5 +18,5 @@ We also have a new tutorial session at Thursdays between 12 and 14. This means t
  * **Fridays 08-10:** Tutorial
  * **Fridays 10-12:** Tutorial
 
-You will be allocated to a tutorial group shortly. You can attend other tutorial groups if there are space, but
+You can attend other tutorial groups if there are space, but
 if they are full, then we kindly ask you to let those assigned to that group get priority.
