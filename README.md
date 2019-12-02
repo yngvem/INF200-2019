@@ -9,6 +9,7 @@ The lecture notes will be posted here, and the course information will be posted
  * [YouTube Channel](https://www.youtube.com/channel/UC8XWLPrXyqHWKHzBMMRnWlw)
  * [Reccomended reading](https://www.oreilly.com/library/view/fluent-python/9781491946237/)
    (not part of the course)
+ * [Padlet](https://padlet.com/yngve_m_moe/5vx2yx8sy8y1)
 
 ## Lecturer and TA GitHub usernames
 These usernames should be added as colaborators on your GitHub page
