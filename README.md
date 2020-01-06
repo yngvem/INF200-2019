@@ -12,6 +12,9 @@ pip install cookiecutter
 cookiecutter gh:yngvem/biosim_template
 ```
 
+Then, rename the project folder to `BioSim_G00_Daniel_Ngoc`, replacing the group number and first names
+accordingly. Use two digits for the group number.
+
 ## Links
 
  * [GitHub Pages](https://yngvem.github.io/INF200-2019)
