@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <title>biolab.laboratory</title>
+    <link rel="stylesheet" href="../../_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for biolab.laboratory</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Implements a laboratory with many dishes.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.dish</span> <span class="k">import</span> <span class="n">Dish</span>
+
+
+<div class="viewcode-block" id="Lab"><a class="viewcode-back" href="../../sim_and_lab.xhtml#biolab.laboratory.Lab">[docs]</a><span class="k">class</span> <span class="nc">Lab</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;A laboratory with many dishes.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n_dishes</span><span class="p">,</span> <span class="n">n_bact_a</span><span class="p">,</span> <span class="n">n_bact_b</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        n_dishes : int</span>
+<span class="sd">            number of Petri dishes in lab</span>
+<span class="sd">        n_bact_a : int</span>
+<span class="sd">            number of bacteria of type A per dish</span>
+<span class="sd">        n_bact_b : int</span>
+<span class="sd">            number of bacteria of type B per dish</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">dishes</span> <span class="o">=</span> <span class="p">[</span><span class="n">Dish</span><span class="p">(</span><span class="n">n_bact_a</span><span class="p">,</span> <span class="n">n_bact_b</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_dishes</span><span class="p">)]</span>
+
+<div class="viewcode-block" id="Lab.cycle"><a class="viewcode-back" href="../../sim_and_lab.xhtml#biolab.laboratory.Lab.cycle">[docs]</a>    <span class="k">def</span> <span class="nf">cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Update all dishes by one cycle.&quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">dish</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dishes</span><span class="p">:</span>
+            <span class="n">dish</span><span class="o">.</span><span class="n">aging</span><span class="p">()</span>
+            <span class="n">dish</span><span class="o">.</span><span class="n">death</span><span class="p">()</span>
+            <span class="n">dish</span><span class="o">.</span><span class="n">division</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Lab.bacteria_counts"><a class="viewcode-back" href="../../sim_and_lab.xhtml#biolab.laboratory.Lab.bacteria_counts">[docs]</a>    <span class="k">def</span> <span class="nf">bacteria_counts</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Count bacteria across dishes.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        tuple</span>
+<span class="sd">            Two-element tuple with count of A and B bacteria.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get_num_a</span><span class="p">()</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dishes</span><span class="p">),</span>
+                <span class="nb">sum</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">get_num_b</span><span class="p">()</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dishes</span><span class="p">))</span></div></div>
+</pre></div>
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

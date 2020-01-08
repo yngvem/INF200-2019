@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <title>Simulation and Laboratory</title>
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="simulation-and-laboratory">
+<h1>Simulation and Laboratory</h1>
+<div class="section" id="module-biolab.simulation">
+<span id="the-simulation-module"></span><h2>The simulation module</h2>
+<p>Implements a complete simulation.</p>
+<dl class="class">
+<dt id="biolab.simulation.Sim">
+<em class="property">class </em><code class="descclassname">biolab.simulation.</code><code class="descname">Sim</code><span class="sig-paren">(</span><em>n_dishes</em>, <em>n_a</em>, <em>n_b</em>, <em>seed</em>, <em>p_dth=0.1</em>, <em>p_div=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/simulation.xhtml#Sim"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Define and perform a simulation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_dishes</strong> (<em>int</em>) – number of Petri dishes in lab</p></li>
+<li><p><strong>n_a</strong> (<em>int</em>) – number of bacteria of type A per dish</p></li>
+<li><p><strong>n_b</strong> (<em>int</em>) – number of bacteria of type B per dish</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – random seed</p></li>
+<li><p><strong>p_dth</strong> (<em>float</em>) – death probability per cycle</p></li>
+<li><p><strong>p_div</strong> (<em>float</em>) – division probability per cycle</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="biolab.simulation.Sim.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>cycles</em>, <em>report_cycles=1</em>, <em>return_counts=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/simulation.xhtml#Sim.run"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Run simulation for given number of cycles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cycles</strong> (<em>int</em>) – number of cycles to simulate</p></li>
+<li><p><strong>report_cycles</strong> (<em>int</em>) – interval between status information updates (== 0: no output)</p></li>
+<li><p><strong>return_counts</strong> (<em>int</em>) – if True, return population counts</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>If return of counts is requested, a tuple (cycle, nA, nB)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>None or tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-biolab.laboratory">
+<span id="the-laboratory-module"></span><h2>The laboratory module</h2>
+<p>Implements a laboratory with many dishes.</p>
+<dl class="class">
+<dt id="biolab.laboratory.Lab">
+<em class="property">class </em><code class="descclassname">biolab.laboratory.</code><code class="descname">Lab</code><span class="sig-paren">(</span><em>n_dishes</em>, <em>n_bact_a</em>, <em>n_bact_b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/laboratory.xhtml#Lab"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>A laboratory with many dishes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_dishes</strong> (<em>int</em>) – number of Petri dishes in lab</p></li>
+<li><p><strong>n_bact_a</strong> (<em>int</em>) – number of bacteria of type A per dish</p></li>
+<li><p><strong>n_bact_b</strong> (<em>int</em>) – number of bacteria of type B per dish</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="biolab.laboratory.Lab.bacteria_counts">
+<code class="descname">bacteria_counts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/laboratory.xhtml#Lab.bacteria_counts"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Count bacteria across dishes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Two-element tuple with count of A and B bacteria.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biolab.laboratory.Lab.cycle">
+<code class="descname">cycle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/laboratory.xhtml#Lab.cycle"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Update all dishes by one cycle.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

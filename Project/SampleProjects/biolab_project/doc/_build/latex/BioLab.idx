@@ -1,0 +1,23 @@
+\indexentry{biolab.simulation (module)|hyperpage}{3}
+\indexentry{Sim (class in biolab.simulation)|hyperpage}{3}
+\indexentry{run() (biolab.simulation.Sim method)|hyperpage}{3}
+\indexentry{biolab.laboratory (module)|hyperpage}{3}
+\indexentry{Lab (class in biolab.laboratory)|hyperpage}{3}
+\indexentry{bacteria\_counts() (biolab.laboratory.Lab method)|hyperpage}{3}
+\indexentry{cycle() (biolab.laboratory.Lab method)|hyperpage}{4}
+\indexentry{biolab.dish (module)|hyperpage}{5}
+\indexentry{Dish (class in biolab.dish)|hyperpage}{5}
+\indexentry{aging() (biolab.dish.Dish method)|hyperpage}{5}
+\indexentry{death() (biolab.dish.Dish method)|hyperpage}{5}
+\indexentry{division() (biolab.dish.Dish method)|hyperpage}{5}
+\indexentry{get\_num\_a() (biolab.dish.Dish method)|hyperpage}{5}
+\indexentry{get\_num\_b() (biolab.dish.Dish method)|hyperpage}{5}
+\indexentry{biolab.bacteria (module)|hyperpage}{5}
+\indexentry{Bacteria (class in biolab.bacteria)|hyperpage}{5}
+\indexentry{ages() (biolab.bacteria.Bacteria method)|hyperpage}{5}
+\indexentry{dies() (biolab.bacteria.Bacteria method)|hyperpage}{5}
+\indexentry{divides() (biolab.bacteria.Bacteria method)|hyperpage}{5}
+\indexentry{get\_params() (biolab.bacteria.Bacteria class method)|hyperpage}{5}
+\indexentry{p\_death (biolab.bacteria.Bacteria attribute)|hyperpage}{6}
+\indexentry{p\_divide (biolab.bacteria.Bacteria attribute)|hyperpage}{6}
+\indexentry{set\_params() (biolab.bacteria.Bacteria class method)|hyperpage}{6}

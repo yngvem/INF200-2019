@@ -1,0 +1,327 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>randvis.simulation &#8212; RandVis 0.1 documentation</title>
+    <link rel="stylesheet" href="../../_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">RandVis 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for randvis.simulation</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">:mod:`randvis.simulation` provides the user interface to the package.</span>
+
+<span class="sd">Each simulation is represented by a :class:`DVSim` instance. On each</span>
+<span class="sd">instance, the :meth:`DVSim.simulate` method can be called as often as</span>
+<span class="sd">you like to simulate a given number of steps.</span>
+
+<span class="sd">The state of the system is visualized as the simulation runs, at intervals</span>
+<span class="sd">that can be chosen. The graphics can also be saved to file at regular</span>
+<span class="sd">intervals. By calling :meth:`DVSim.make_movie` after a simulation is complete,</span>
+<span class="sd">individual graphics files can be combined into an animation.</span>
+
+<span class="sd">.. note::</span>
+<span class="sd">   * This module requires the program ``ffmpeg`` or ``convert``</span>
+<span class="sd">     available from `&lt;http://ffmpeg.org&gt;` and `&lt;http://imagemagick.org&gt;`.</span>
+<span class="sd">   * You need to set the  :const:`_FFMPEG_BINARY` and :const:`_CONVERT_BINARY`</span>
+<span class="sd">     constants below to the command required to invoke the programs</span>
+<span class="sd">   * You need to set the :const:`_DEFAULT_FILEBASE` constant below to the</span>
+<span class="sd">     directory and file-name start you want to use for the graphics output</span>
+<span class="sd">     files.</span>
+
+<span class="sd">Example</span>
+<span class="sd">--------</span>
+<span class="sd">::</span>
+
+<span class="sd">    sim = DVSim((10, 15), 0.1, 12345, _DEFAULT_FILEBASE)</span>
+<span class="sd">    sim.simulate(50, 1, 5)</span>
+<span class="sd">    sim.make_movie()</span>
+
+<span class="sd">This code</span>
+
+<span class="sd">#. creates a system with a 10x15 matrix, sets the noise level to 0.1,</span>
+<span class="sd">   the random number generator seed to 12345 and specifies the filename</span>
+<span class="sd">   for output;</span>
+<span class="sd">#. performs a simulation of 50 steps, updating the graphics after each</span>
+<span class="sd">   step and saving a figure after each 5th step;</span>
+<span class="sd">#. creates a movie from the individual figures saved.</span>
+
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s2">&quot;Hans E Plesser, NMBU&quot;</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">randvis.diffsys</span> <span class="k">import</span> <span class="n">DiffSys</span>
+
+<span class="c1"># update these variables to point to your ffmpeg and convert binaries</span>
+<span class="n">_FFMPEG_BINARY</span> <span class="o">=</span> <span class="s1">&#39;ffmpeg&#39;</span>
+<span class="n">_CONVERT_BINARY</span> <span class="o">=</span> <span class="s1">&#39;convert&#39;</span>
+
+<span class="c1"># update this to the directory and file-name beginning</span>
+<span class="c1"># for the graphics files</span>
+<span class="n">_DEFAULT_GRAPHICS_DIR</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">_DEFAULT_GRAPHICS_NAME</span> <span class="o">=</span> <span class="s1">&#39;dv&#39;</span>
+<span class="n">_DEFAULT_MOVIE_FORMAT</span> <span class="o">=</span> <span class="s1">&#39;mp4&#39;</span>   <span class="c1"># alternatives: mp4, gif</span>
+
+
+<div class="viewcode-block" id="DVSim"><a class="viewcode-back" href="../../user_interface.html#randvis.simulation.DVSim">[docs]</a><span class="k">class</span> <span class="nc">DVSim</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Provides user interface for simulation, including visualization.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sys_size</span><span class="p">,</span> <span class="n">noise</span><span class="p">,</span> <span class="n">seed</span><span class="p">,</span>
+                 <span class="n">img_dir</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">img_name</span><span class="o">=</span><span class="n">_DEFAULT_GRAPHICS_NAME</span><span class="p">,</span>
+                 <span class="n">img_fmt</span><span class="o">=</span><span class="s1">&#39;png&#39;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :param sys_size:  system size, e.g. (5, 10)</span>
+<span class="sd">        :type sys_size: (int, int)</span>
+<span class="sd">        :param noise: noise level</span>
+<span class="sd">        :type noise: float</span>
+<span class="sd">        :param seed: random generator seed</span>
+<span class="sd">        :type seed: int</span>
+<span class="sd">        :param img_dir: directory for image files; no images if None</span>
+<span class="sd">        :type img_dir: str</span>
+<span class="sd">        :param img_name: beginning of name for image files</span>
+<span class="sd">        :type img_name: str</span>
+<span class="sd">        :param img_fmt: image file format suffix, default &#39;png&#39;</span>
+<span class="sd">        :type img_fmt: str</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_system</span> <span class="o">=</span> <span class="n">DiffSys</span><span class="p">(</span><span class="n">sys_size</span><span class="p">,</span> <span class="n">noise</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">img_dir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img_base</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">img_dir</span><span class="p">,</span> <span class="n">img_name</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img_base</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img_fmt</span> <span class="o">=</span> <span class="n">img_fmt</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_final_step</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img_ctr</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># the following will be initialized by _setup_graphics</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_map_ax</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img_axis</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mean_ax</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mean_line</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="DVSim.simulate"><a class="viewcode-back" href="../../user_interface.html#randvis.simulation.DVSim.simulate">[docs]</a>    <span class="k">def</span> <span class="nf">simulate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_steps</span><span class="p">,</span> <span class="n">vis_steps</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">img_steps</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Run simulation while visualizing the result.</span>
+
+<span class="sd">        :param num_steps: number of simulation steps to execute</span>
+<span class="sd">        :param vis_steps: interval between visualization updates</span>
+<span class="sd">        :param img_steps: interval between visualizations saved to files</span>
+<span class="sd">                          (default: vis_steps)</span>
+
+<span class="sd">        .. note:: Image files will be numbered consecutively.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="n">img_steps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">img_steps</span> <span class="o">=</span> <span class="n">vis_steps</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_final_step</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">+</span> <span class="n">num_steps</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_setup_graphics</span><span class="p">()</span>
+
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_final_step</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">%</span> <span class="n">vis_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_update_graphics</span><span class="p">()</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">%</span> <span class="n">img_steps</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_save_graphics</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_system</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_step</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="DVSim.make_movie"><a class="viewcode-back" href="../../user_interface.html#randvis.simulation.DVSim.make_movie">[docs]</a>    <span class="k">def</span> <span class="nf">make_movie</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">movie_fmt</span><span class="o">=</span><span class="n">_DEFAULT_MOVIE_FORMAT</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates MPEG4 movie from visualization images saved.</span>
+
+<span class="sd">        .. :note:</span>
+<span class="sd">            Requires ffmpeg</span>
+
+<span class="sd">        The movie is stored as img_base + movie_fmt</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img_base</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;No filename defined.&quot;</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">movie_fmt</span> <span class="o">==</span> <span class="s1">&#39;mp4&#39;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="c1"># Parameters chosen according to http://trac.ffmpeg.org/wiki/Encode/H.264,</span>
+                <span class="c1"># section &quot;Compatibility&quot;</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">_FFMPEG_BINARY</span><span class="p">,</span>
+                                       <span class="s1">&#39;-i&#39;</span><span class="p">,</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">%05d</span><span class="s1">.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_img_base</span><span class="p">),</span>
+                                       <span class="s1">&#39;-y&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;-profile:v&#39;</span><span class="p">,</span> <span class="s1">&#39;baseline&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;-level&#39;</span><span class="p">,</span> <span class="s1">&#39;3.0&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;-pix_fmt&#39;</span><span class="p">,</span> <span class="s1">&#39;yuv420p&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_img_base</span><span class="p">,</span>
+                                                      <span class="n">movie_fmt</span><span class="p">)])</span>
+            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;ERROR: ffmpeg failed with: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+        <span class="k">elif</span> <span class="n">movie_fmt</span> <span class="o">==</span> <span class="s1">&#39;gif&#39;</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">subprocess</span><span class="o">.</span><span class="n">check_call</span><span class="p">([</span><span class="n">_CONVERT_BINARY</span><span class="p">,</span>
+                                       <span class="s1">&#39;-delay&#39;</span><span class="p">,</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;-loop&#39;</span><span class="p">,</span> <span class="s1">&#39;0&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_*.png&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_img_base</span><span class="p">),</span>
+                                       <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_img_base</span><span class="p">,</span>
+                                                      <span class="n">movie_fmt</span><span class="p">)])</span>
+            <span class="k">except</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">CalledProcessError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;ERROR: convert failed with: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">err</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Unknown movie format: &#39;</span> <span class="o">+</span> <span class="n">movie_fmt</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">_setup_graphics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Creates subplots.&quot;&quot;&quot;</span>
+
+        <span class="c1"># create new figure window</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+
+        <span class="c1"># Add left subplot for images created with imshow().</span>
+        <span class="c1"># We cannot create the actual ImageAxis object before we know</span>
+        <span class="c1"># the size of the image, so we delay its creation.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_map_ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img_axis</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># Add right subplot for line graph of mean.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_ax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mean_ax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mean_ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">)</span>
+
+        <span class="c1"># needs updating on subsequent calls to simulate()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mean_ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_final_step</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_line</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mean_plot</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_final_step</span><span class="p">),</span>
+                                           <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_final_step</span><span class="p">))</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_mean_line</span> <span class="o">=</span> <span class="n">mean_plot</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">xdata</span><span class="p">,</span> <span class="n">ydata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_line</span><span class="o">.</span><span class="n">get_data</span><span class="p">()</span>
+            <span class="n">xnew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xdata</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_final_step</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">xnew</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ynew</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">xnew</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_mean_line</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">xdata</span><span class="p">,</span> <span class="n">xnew</span><span class="p">)),</span>
+                                         <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">ydata</span><span class="p">,</span> <span class="n">ynew</span><span class="p">)))</span>
+
+    <span class="k">def</span> <span class="nf">_update_system_map</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sys_map</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Update the 2D-view of the system.&#39;&#39;&#39;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img_axis</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img_axis</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">sys_map</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_img_axis</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sys_map</span><span class="p">,</span>
+                                                 <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">,</span>
+                                                 <span class="n">vmin</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_img_axis</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_map_ax</span><span class="p">,</span>
+                         <span class="n">orientation</span><span class="o">=</span><span class="s1">&#39;horizontal&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_mean_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="p">):</span>
+        <span class="n">ydata</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mean_line</span><span class="o">.</span><span class="n">get_ydata</span><span class="p">()</span>
+        <span class="n">ydata</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_step</span><span class="p">]</span> <span class="o">=</span> <span class="n">mean</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mean_line</span><span class="o">.</span><span class="n">set_ydata</span><span class="p">(</span><span class="n">ydata</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_update_graphics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Updates graphics with current data.&quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_system_map</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_system</span><span class="o">.</span><span class="n">get_status</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_update_mean_graph</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_system</span><span class="o">.</span><span class="n">mean_value</span><span class="p">())</span>
+        <span class="n">plt</span><span class="o">.</span><span class="n">pause</span><span class="p">(</span><span class="mf">1e-6</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_save_graphics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Saves graphics to file if file name given.&quot;&quot;&quot;</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_img_base</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{base}</span><span class="s1">_</span><span class="si">{num:05d}</span><span class="s1">.</span><span class="si">{type}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_img_base</span><span class="p">,</span>
+                                                     <span class="n">num</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_img_ctr</span><span class="p">,</span>
+                                                     <span class="nb">type</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_img_fmt</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_img_ctr</span> <span class="o">+=</span> <span class="mi">1</span></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="../../index.html">RandVis 0.1 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="../index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Hans E Plesser, NMBU.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

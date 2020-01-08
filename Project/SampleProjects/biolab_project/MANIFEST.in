@@ -1,0 +1,2 @@
+recursive-include biolab *.pyx
+recursive-include examples *.py *.ipynb

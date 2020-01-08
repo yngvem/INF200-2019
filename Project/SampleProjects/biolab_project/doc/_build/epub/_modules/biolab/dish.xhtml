@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <title>biolab.dish</title>
+    <link rel="stylesheet" href="../../_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for biolab.dish</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Implements a dish with bacteria cultures.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.bacteria</span> <span class="k">import</span> <span class="n">Bacteria</span>
+
+
+<div class="viewcode-block" id="Dish"><a class="viewcode-back" href="../../dish_and_bacteria.xhtml#biolab.dish.Dish">[docs]</a><span class="k">class</span> <span class="nc">Dish</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Petri dish containing bacteria of types A and B.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">num_a</span><span class="p">,</span> <span class="n">num_b</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        num_a : int</span>
+<span class="sd">            number of bacteria of type A in dish</span>
+<span class="sd">        num_b : int</span>
+<span class="sd">            number of bacteria of type A in dish</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">a_pop</span> <span class="o">=</span> <span class="p">[</span><span class="n">Bacteria</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_a</span><span class="p">)]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_pop</span> <span class="o">=</span> <span class="p">[</span><span class="n">Bacteria</span><span class="p">()</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_b</span><span class="p">)]</span>
+
+<div class="viewcode-block" id="Dish.get_num_a"><a class="viewcode-back" href="../../dish_and_bacteria.xhtml#biolab.dish.Dish.get_num_a">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_a</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return number of A bacteria in dish.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a_pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Dish.get_num_b"><a class="viewcode-back" href="../../dish_and_bacteria.xhtml#biolab.dish.Dish.get_num_b">[docs]</a>    <span class="k">def</span> <span class="nf">get_num_b</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return number of B bacteria in dish.&quot;&quot;&quot;</span>
+
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b_pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Dish.aging"><a class="viewcode-back" href="../../dish_and_bacteria.xhtml#biolab.dish.Dish.aging">[docs]</a>    <span class="k">def</span> <span class="nf">aging</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Age all bacteria in dish by one cycle.&quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">bact</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">a_pop</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b_pop</span><span class="p">:</span>
+            <span class="n">bact</span><span class="o">.</span><span class="n">ages</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="Dish.death"><a class="viewcode-back" href="../../dish_and_bacteria.xhtml#biolab.dish.Dish.death">[docs]</a>    <span class="k">def</span> <span class="nf">death</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Remove dying bacteria.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">survivors</span><span class="p">(</span><span class="n">pop</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">bact</span> <span class="k">for</span> <span class="n">bact</span> <span class="ow">in</span> <span class="n">pop</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">bact</span><span class="o">.</span><span class="n">dies</span><span class="p">()]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">a_pop</span> <span class="o">=</span> <span class="n">survivors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a_pop</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_pop</span> <span class="o">=</span> <span class="n">survivors</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b_pop</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Dish.division"><a class="viewcode-back" href="../../dish_and_bacteria.xhtml#biolab.dish.Dish.division">[docs]</a>    <span class="k">def</span> <span class="nf">division</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;For each dividing bacterium, add one new.&quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="nf">newborns</span><span class="p">(</span><span class="n">pop</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">Bacteria</span><span class="p">()</span> <span class="k">for</span> <span class="n">parent</span> <span class="ow">in</span> <span class="n">pop</span> <span class="k">if</span> <span class="n">parent</span><span class="o">.</span><span class="n">divides</span><span class="p">()]</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">a_pop</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">newborns</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a_pop</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">b_pop</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">newborns</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b_pop</span><span class="p">))</span></div></div>
+
+</pre></div>
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

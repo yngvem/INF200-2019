@@ -1,0 +1,212 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Simulation and Laboratory &#8212; BioLab 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Dishes and Bacteria" href="dish_and_bacteria.html" />
+    <link rel="prev" title="Welcome to BioLab’s documentation!" href="index.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="simulation-and-laboratory">
+<h1>Simulation and Laboratory<a class="headerlink" href="#simulation-and-laboratory" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-biolab.simulation">
+<span id="the-simulation-module"></span><h2>The simulation module<a class="headerlink" href="#module-biolab.simulation" title="Permalink to this headline">¶</a></h2>
+<p>Implements a complete simulation.</p>
+<dl class="class">
+<dt id="biolab.simulation.Sim">
+<em class="property">class </em><code class="descclassname">biolab.simulation.</code><code class="descname">Sim</code><span class="sig-paren">(</span><em>n_dishes</em>, <em>n_a</em>, <em>n_b</em>, <em>seed</em>, <em>p_dth=0.1</em>, <em>p_div=0.1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/simulation.html#Sim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biolab.simulation.Sim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Define and perform a simulation.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n_dishes</strong> (<em>int</em>) – number of Petri dishes in lab</li>
+<li><strong>n_a</strong> (<em>int</em>) – number of bacteria of type A per dish</li>
+<li><strong>n_b</strong> (<em>int</em>) – number of bacteria of type B per dish</li>
+<li><strong>seed</strong> (<em>int</em>) – random seed</li>
+<li><strong>p_dth</strong> (<em>float</em>) – death probability per cycle</li>
+<li><strong>p_div</strong> (<em>float</em>) – division probability per cycle</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="biolab.simulation.Sim.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>cycles</em>, <em>report_cycles=1</em>, <em>return_counts=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/simulation.html#Sim.run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biolab.simulation.Sim.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run simulation for given number of cycles.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>cycles</strong> (<em>int</em>) – number of cycles to simulate</li>
+<li><strong>report_cycles</strong> (<em>int</em>) – interval between status information updates (== 0: no output)</li>
+<li><strong>return_counts</strong> (<em>int</em>) – if True, return population counts</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">If return of counts is requested, a tuple (cycle, nA, nB)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">None or tuple</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-biolab.laboratory">
+<span id="the-laboratory-module"></span><h2>The laboratory module<a class="headerlink" href="#module-biolab.laboratory" title="Permalink to this headline">¶</a></h2>
+<p>Implements a laboratory with many dishes.</p>
+<dl class="class">
+<dt id="biolab.laboratory.Lab">
+<em class="property">class </em><code class="descclassname">biolab.laboratory.</code><code class="descname">Lab</code><span class="sig-paren">(</span><em>n_dishes</em>, <em>n_bact_a</em>, <em>n_bact_b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/laboratory.html#Lab"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biolab.laboratory.Lab" title="Permalink to this definition">¶</a></dt>
+<dd><p>A laboratory with many dishes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>n_dishes</strong> (<em>int</em>) – number of Petri dishes in lab</li>
+<li><strong>n_bact_a</strong> (<em>int</em>) – number of bacteria of type A per dish</li>
+<li><strong>n_bact_b</strong> (<em>int</em>) – number of bacteria of type B per dish</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="biolab.laboratory.Lab.bacteria_counts">
+<code class="descname">bacteria_counts</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/laboratory.html#Lab.bacteria_counts"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biolab.laboratory.Lab.bacteria_counts" title="Permalink to this definition">¶</a></dt>
+<dd><p>Count bacteria across dishes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Two-element tuple with count of A and B bacteria.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">tuple</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="biolab.laboratory.Lab.cycle">
+<code class="descname">cycle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/laboratory.html#Lab.cycle"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#biolab.laboratory.Lab.cycle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update all dishes by one cycle.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">BioLab</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Simulation and Laboratory</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-biolab.simulation">The simulation module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-biolab.laboratory">The laboratory module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dish_and_bacteria.html">Dishes and Bacteria</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="index.html" title="previous chapter">Welcome to BioLab’s documentation!</a></li>
+      <li>Next: <a href="dish_and_bacteria.html" title="next chapter">Dishes and Bacteria</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2018, Hans Ekkehard Plesser.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.8.1</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/sim_and_lab.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

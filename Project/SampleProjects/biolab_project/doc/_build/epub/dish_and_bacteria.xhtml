@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:epub="http://www.idpf.org/2007/ops">
+  <head>
+    <meta charset="utf-8" />
+    <title>Dishes and Bacteria</title>
+    <link rel="stylesheet" href="_static/epub.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" /> 
+  </head><body>
+
+    <div class="document">
+      <div class="documentwrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="dishes-and-bacteria">
+<h1>Dishes and Bacteria</h1>
+<div class="section" id="module-biolab.dish">
+<span id="the-dish-module"></span><h2>The dish module</h2>
+<p>Implements a dish with bacteria cultures.</p>
+<dl class="class">
+<dt id="biolab.dish.Dish">
+<em class="property">class </em><code class="descclassname">biolab.dish.</code><code class="descname">Dish</code><span class="sig-paren">(</span><em>num_a</em>, <em>num_b</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/dish.xhtml#Dish"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Petri dish containing bacteria of types A and B.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>num_a</strong> (<em>int</em>) – number of bacteria of type A in dish</p></li>
+<li><p><strong>num_b</strong> (<em>int</em>) – number of bacteria of type A in dish</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="method">
+<dt id="biolab.dish.Dish.aging">
+<code class="descname">aging</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/dish.xhtml#Dish.aging"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Age all bacteria in dish by one cycle.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biolab.dish.Dish.death">
+<code class="descname">death</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/dish.xhtml#Dish.death"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Remove dying bacteria.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biolab.dish.Dish.division">
+<code class="descname">division</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/dish.xhtml#Dish.division"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>For each dividing bacterium, add one new.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biolab.dish.Dish.get_num_a">
+<code class="descname">get_num_a</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/dish.xhtml#Dish.get_num_a"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return number of A bacteria in dish.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biolab.dish.Dish.get_num_b">
+<code class="descname">get_num_b</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/dish.xhtml#Dish.get_num_b"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return number of B bacteria in dish.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-biolab.bacteria">
+<span id="the-bacteria-module"></span><h2>The bacteria module</h2>
+<p>Implements a bacteria model.</p>
+<dl class="class">
+<dt id="biolab.bacteria.Bacteria">
+<em class="property">class </em><code class="descclassname">biolab.bacteria.</code><code class="descname">Bacteria</code><a class="reference internal" href="_modules/biolab/bacteria.xhtml#Bacteria"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bacteria which die and multiply with fixed probabilities.</p>
+<p>Create bacterium with age 0.</p>
+<dl class="method">
+<dt id="biolab.bacteria.Bacteria.ages">
+<code class="descname">ages</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/bacteria.xhtml#Bacteria.ages"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bacterium ages by one cycle.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="biolab.bacteria.Bacteria.dies">
+<code class="descname">dies</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/bacteria.xhtml#Bacteria.dies"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Decide whether bacterium dies.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if bacterium dies.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="biolab.bacteria.Bacteria.divides">
+<code class="descname">divides</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/bacteria.xhtml#Bacteria.divides"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Decide whether bacterium divides.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>True if bacterium divides.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="biolab.bacteria.Bacteria.get_params">
+<em class="property">classmethod </em><code class="descname">get_params</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/bacteria.xhtml#Bacteria.get_params"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Get class parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary with class parameters.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="biolab.bacteria.Bacteria.p_death">
+<code class="descname">p_death</code><em class="property"> = 0.1</em></dt>
+<dd><p>probability of death per cycle</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="biolab.bacteria.Bacteria.p_divide">
+<code class="descname">p_divide</code><em class="property"> = 0.2</em></dt>
+<dd><p>probability of cell division per cycle</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="biolab.bacteria.Bacteria.set_params">
+<em class="property">classmethod </em><code class="descname">set_params</code><span class="sig-paren">(</span><em>new_params</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/biolab/bacteria.xhtml#Bacteria.set_params"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Set class parameters.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>new_params</strong> (<em>dict</em>) – Legal keys: ‘p_death’, ‘p_divide’</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p>ValueError, KeyError</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

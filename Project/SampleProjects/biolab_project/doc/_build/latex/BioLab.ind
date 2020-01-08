@@ -1,0 +1,53 @@
+\begin{sphinxtheindex}
+\let\bigletter\sphinxstyleindexlettergroup
+
+  \bigletter A
+  \item ages() (biolab.bacteria.Bacteria method), \hyperpage{5}
+  \item aging() (biolab.dish.Dish method), \hyperpage{5}
+
+  \indexspace
+  \bigletter B
+  \item Bacteria (class in biolab.bacteria), \hyperpage{5}
+  \item bacteria\_counts() (biolab.laboratory.Lab method), \hyperpage{3}
+  \item biolab.bacteria (module), \hyperpage{5}
+  \item biolab.dish (module), \hyperpage{5}
+  \item biolab.laboratory (module), \hyperpage{3}
+  \item biolab.simulation (module), \hyperpage{3}
+
+  \indexspace
+  \bigletter C
+  \item cycle() (biolab.laboratory.Lab method), \hyperpage{4}
+
+  \indexspace
+  \bigletter D
+  \item death() (biolab.dish.Dish method), \hyperpage{5}
+  \item dies() (biolab.bacteria.Bacteria method), \hyperpage{5}
+  \item Dish (class in biolab.dish), \hyperpage{5}
+  \item divides() (biolab.bacteria.Bacteria method), \hyperpage{5}
+  \item division() (biolab.dish.Dish method), \hyperpage{5}
+
+  \indexspace
+  \bigletter G
+  \item get\_num\_a() (biolab.dish.Dish method), \hyperpage{5}
+  \item get\_num\_b() (biolab.dish.Dish method), \hyperpage{5}
+  \item get\_params() (biolab.bacteria.Bacteria class method), \hyperpage{5}
+
+  \indexspace
+  \bigletter L
+  \item Lab (class in biolab.laboratory), \hyperpage{3}
+
+  \indexspace
+  \bigletter P
+  \item p\_death (biolab.bacteria.Bacteria attribute), \hyperpage{6}
+  \item p\_divide (biolab.bacteria.Bacteria attribute), \hyperpage{6}
+
+  \indexspace
+  \bigletter R
+  \item run() (biolab.simulation.Sim method), \hyperpage{3}
+
+  \indexspace
+  \bigletter S
+  \item set\_params() (biolab.bacteria.Bacteria class method), \hyperpage{6}
+  \item Sim (class in biolab.simulation), \hyperpage{3}
+
+\end{sphinxtheindex}

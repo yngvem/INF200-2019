@@ -1,0 +1,187 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>User Interface &#8212; RandVis 0.1 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Simulated System" href="system.html" />
+    <link rel="prev" title="Welcome to RandVis’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="system.html" title="Simulated System"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to RandVis’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">RandVis 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-randvis.simulation">
+<span id="user-interface"></span><h1>User Interface<a class="headerlink" href="#module-randvis.simulation" title="Permalink to this headline">¶</a></h1>
+<p><a class="reference internal" href="#module-randvis.simulation" title="randvis.simulation"><code class="xref py py-mod docutils literal"><span class="pre">randvis.simulation</span></code></a> provides the user interface to the package.</p>
+<p>Each simulation is represented by a <a class="reference internal" href="#randvis.simulation.DVSim" title="randvis.simulation.DVSim"><code class="xref py py-class docutils literal"><span class="pre">DVSim</span></code></a> instance. On each
+instance, the <a class="reference internal" href="#randvis.simulation.DVSim.simulate" title="randvis.simulation.DVSim.simulate"><code class="xref py py-meth docutils literal"><span class="pre">DVSim.simulate()</span></code></a> method can be called as often as
+you like to simulate a given number of steps.</p>
+<p>The state of the system is visualized as the simulation runs, at intervals
+that can be chosen. The graphics can also be saved to file at regular
+intervals. By calling <a class="reference internal" href="#randvis.simulation.DVSim.make_movie" title="randvis.simulation.DVSim.make_movie"><code class="xref py py-meth docutils literal"><span class="pre">DVSim.make_movie()</span></code></a> after a simulation is complete,
+individual graphics files can be combined into an animation.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
+<li>This module requires the program <code class="docutils literal"><span class="pre">ffmpeg</span></code> or <code class="docutils literal"><span class="pre">convert</span></code>
+available from <cite>&lt;http://ffmpeg.org&gt;</cite> and <cite>&lt;http://imagemagick.org&gt;</cite>.</li>
+<li>You need to set the  <code class="xref py py-const docutils literal"><span class="pre">_FFMPEG_BINARY</span></code> and <code class="xref py py-const docutils literal"><span class="pre">_CONVERT_BINARY</span></code>
+constants below to the command required to invoke the programs</li>
+<li>You need to set the <code class="xref py py-const docutils literal"><span class="pre">_DEFAULT_FILEBASE</span></code> constant below to the
+directory and file-name start you want to use for the graphics output
+files.</li>
+</ul>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">sim</span> <span class="o">=</span> <span class="n">DVSim</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">),</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">12345</span><span class="p">,</span> <span class="n">_DEFAULT_FILEBASE</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">simulate</span><span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="n">sim</span><span class="o">.</span><span class="n">make_movie</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This code</p>
+<ol class="arabic simple">
+<li>creates a system with a 10x15 matrix, sets the noise level to 0.1,
+the random number generator seed to 12345 and specifies the filename
+for output;</li>
+<li>performs a simulation of 50 steps, updating the graphics after each
+step and saving a figure after each 5th step;</li>
+<li>creates a movie from the individual figures saved.</li>
+</ol>
+<dl class="class">
+<dt id="randvis.simulation.DVSim">
+<em class="property">class </em><code class="descclassname">randvis.simulation.</code><code class="descname">DVSim</code><span class="sig-paren">(</span><em>sys_size</em>, <em>noise</em>, <em>seed</em>, <em>img_dir=None</em>, <em>img_name='dv'</em>, <em>img_fmt='png'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/randvis/simulation.html#DVSim"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#randvis.simulation.DVSim" title="Permalink to this definition">¶</a></dt>
+<dd><p>Provides user interface for simulation, including visualization.</p>
+<dl class="method">
+<dt id="randvis.simulation.DVSim.make_movie">
+<code class="descname">make_movie</code><span class="sig-paren">(</span><em>movie_fmt='mp4'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/randvis/simulation.html#DVSim.make_movie"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#randvis.simulation.DVSim.make_movie" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates MPEG4 movie from visualization images saved.</p>
+<p>The movie is stored as img_base + movie_fmt</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="randvis.simulation.DVSim.simulate">
+<code class="descname">simulate</code><span class="sig-paren">(</span><em>num_steps</em>, <em>vis_steps=1</em>, <em>img_steps=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/randvis/simulation.html#DVSim.simulate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#randvis.simulation.DVSim.simulate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run simulation while visualizing the result.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>num_steps</strong> – number of simulation steps to execute</li>
+<li><strong>vis_steps</strong> – interval between visualization updates</li>
+<li><strong>img_steps</strong> – interval between visualizations saved to files
+(default: vis_steps)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Image files will be numbered consecutively.</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to RandVis’s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="system.html"
+                        title="next chapter">Simulated System</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/user_interface.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="system.html" title="Simulated System"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to RandVis’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">RandVis 0.1 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Hans E Plesser, NMBU.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.3.
+    </div>
+  </body>
+</html>

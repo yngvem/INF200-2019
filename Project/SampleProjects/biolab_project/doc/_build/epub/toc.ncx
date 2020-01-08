@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+<ncx version="2005-1" xmlns="http://www.daisy.org/z3986/2005/ncx/">
+  <head>
+    <meta name="dtb:uid" content="unknown"/>
+    <meta name="dtb:depth" content="2"/>
+    <meta name="dtb:totalPageCount" content="0"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle>
+    <text>BioLab</text>
+  </docTitle>
+  <navMap>    
+    <navPoint id="navPoint1" playOrder="1">
+      <navLabel>
+        <text>Welcome to BioLab’s documentation!</text>
+      </navLabel>
+      <content src="index.xhtml" />  
+    </navPoint>
+    <navPoint id="navPoint2" playOrder="2">
+      <navLabel>
+        <text>Simulation and Laboratory</text>
+      </navLabel>
+      <content src="sim_and_lab.xhtml" />  
+      <navPoint id="navPoint3" playOrder="2">
+        <navLabel>
+          <text>Simulation and Laboratory</text>
+        </navLabel>
+        <content src="sim_and_lab.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint4" playOrder="3">
+        <navLabel>
+          <text>The simulation module</text>
+        </navLabel>
+        <content src="sim_and_lab.xhtml#module-biolab.simulation" />  
+      </navPoint>
+      <navPoint id="navPoint5" playOrder="4">
+        <navLabel>
+          <text>The laboratory module</text>
+        </navLabel>
+        <content src="sim_and_lab.xhtml#module-biolab.laboratory" />  
+      </navPoint>
+    </navPoint>
+    <navPoint id="navPoint6" playOrder="5">
+      <navLabel>
+        <text>Dishes and Bacteria</text>
+      </navLabel>
+      <content src="dish_and_bacteria.xhtml" />  
+      <navPoint id="navPoint7" playOrder="5">
+        <navLabel>
+          <text>Dishes and Bacteria</text>
+        </navLabel>
+        <content src="dish_and_bacteria.xhtml" />  
+      </navPoint>
+      <navPoint id="navPoint8" playOrder="6">
+        <navLabel>
+          <text>The dish module</text>
+        </navLabel>
+        <content src="dish_and_bacteria.xhtml#module-biolab.dish" />  
+      </navPoint>
+      <navPoint id="navPoint9" playOrder="7">
+        <navLabel>
+          <text>The bacteria module</text>
+        </navLabel>
+        <content src="dish_and_bacteria.xhtml#module-biolab.bacteria" />  
+      </navPoint>
+    </navPoint>
+  </navMap>
+</ncx>
