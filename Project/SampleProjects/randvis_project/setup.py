@@ -37,6 +37,6 @@ setup(name='RandVis',
       author_email='hans.ekkehard.plesser@nmbu.no',
       requires=['numpy (>=1.6.1)',
                 'matplotlib (>=1.1.0)'],
-      packages=['randvis', 'randvis.tests'],
+      packages=['randvis',],
       scripts=['examples/rv_demo.py', 'examples/rv_demo.py'],
       )
