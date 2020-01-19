@@ -2,6 +2,9 @@
 The lecture notes will be posted here, and the course information will be posted on
 [GitHub pages](https://yngvem.github.io/INF200-2019).
 
+# Biosim map example
+I have uploaded example code to create a static plot of a map. It is located [here](Project/mapplot/mapplot.py).
+
 # Biosim cookiecutter template
 The cookiecutter template you should use is [here](https://github.com/yngvem/biosim_template).
 To use it, open your terminal window (Anaconda Prompt on Windows) and navigate to the directory
