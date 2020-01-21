@@ -5,6 +5,7 @@ The lecture notes will be posted here, and the course information will be posted
 # How to submit your exam
 
 1. Add your repository link to [this form](https://docs.google.com/forms/d/e/1FAIpQLSeErY690hqZYIPc7X0DZeSqrxd5geQoiY6oy-sdxcKKUQKdEw/viewform?usp=sf_link).
+2. Add *yngvem* as collaborator to the repository
 2. Add a tag with the name *submission* to the commit you wish to submit
 3. Push that tag to origin
 
