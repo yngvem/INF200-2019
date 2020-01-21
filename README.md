@@ -2,6 +2,9 @@
 The lecture notes will be posted here, and the course information will be posted on
 [GitHub pages](https://yngvem.github.io/INF200-2019).
 
+# Exam repositories
+Please add your repository link to [this form](https://docs.google.com/forms/d/e/1FAIpQLSeErY690hqZYIPc7X0DZeSqrxd5geQoiY6oy-sdxcKKUQKdEw/viewform?usp=sf_link).
+
 # Biosim map example
 I have uploaded example code to create a static plot of a map. It is located [here](Project/mapplot/mapplot.py).
 
