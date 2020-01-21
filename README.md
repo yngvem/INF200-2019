@@ -3,6 +3,7 @@ The lecture notes will be posted here, and the course information will be posted
 [GitHub pages](https://yngvem.github.io/INF200-2019).
 
 # How to submit your exam
+There is a YouTube video showing the process [here](https://youtu.be/9vJVNJ17eOo)
 
 1. Add your repository link to [this form](https://docs.google.com/forms/d/e/1FAIpQLSeErY690hqZYIPc7X0DZeSqrxd5geQoiY6oy-sdxcKKUQKdEw/viewform?usp=sf_link).
 2. Add *yngvem* as collaborator to the repository
