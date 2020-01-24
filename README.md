@@ -4,7 +4,8 @@ The lecture notes will be posted here, and the course information will be posted
 
 # Information about oral exam
 I have now added information about the oral exam [here](exam/information_about_oral_exam.md).
-
+## Flow chargs
+Here is a short video to show you how to create a flowchart from PyCharm https://www.youtube.com/watch?v=eAT_lVulEp8. Though I do reccomend using a third party tools such as [draw.io](https://draw.io) and do it manually.
 # How to submit your exam
 There is a YouTube video showing the process [here](https://youtu.be/9vJVNJ17eOo)
 
