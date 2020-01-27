@@ -2,6 +2,9 @@
 The lecture notes will be posted here, and the course information will be posted on
 [GitHub pages](https://yngvem.github.io/INF200-2019).
 
+# Exam schedule
+The exam schedule is [here](exam_schedule.pdf).
+
 # Information about oral exam
 I have now added information about the oral exam [here](exam/information_about_oral_exam.md).
 ## Flow charts
